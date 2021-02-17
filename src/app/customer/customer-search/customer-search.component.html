@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <fieldset>
+        <div class="card-header">{{findTitle}}</div>
+        <div>
+          <select class="form-control" name="search" [(ngModel)]="selectedCriteria">
+            <option *ngFor="let option of searchCriterias" [ngValue]="option">{{option}}
+            </option>
+          </select>
+        </div>
+        <div class="input-group">
+          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" [(ngModel)]="searchValue"  />
+          <button type="button" class="btn btn-outline-primary" (click)="search()">search</button>
+        </div>
+        <div>
+          <table class="table table-hover table-bordered">
+            <tbody>
+              <tr *ngFor="let customer of searchResult" (click)="onRowSelected(customer)">
+                <td>
+                  {{customer.name}} {{customer.lastname}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-9 border">
+      <app-customer-display [customer]="selectedRow" ></app-customer-display>
+    </div>
+  </div>
+</div>
+
+

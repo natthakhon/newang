@@ -1,0 +1,35 @@
+<div *ngIf="addresses" class="container-fluid">
+  <div >
+    <div>
+      Address Options
+    </div>
+
+    <div *ngFor="let option of addressOptions.keys();" class="form-check-inline">
+      <input type="checkbox" class="form-check-input"
+        (change)="onAddressCheck(option,$event.target.checked)"
+        [checked]="addressOptions.get(option)" >{{option}}
+    </div>
+
+
+    <div *ngFor="let address of addresses">
+      <div *ngIf="addressOptions.get(getAddresstype(address?.addressType))">
+        <div class="border-top">
+          {{getAddresstype(address?.addressType)}}
+        </div>
+        <div>
+          {{address.address1}} {{address.address2}}
+        </div>
+        <div>
+          {{address.tumbol}}  {{address.umphur}}
+        </div>
+        <div class="border-bottom">
+          {{address.changwad}}  {{address.zip}}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

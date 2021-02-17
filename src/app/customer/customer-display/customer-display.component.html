@@ -1,0 +1,17 @@
+<div *ngIf="customer" class="container-fluid">
+  <div class="row">
+    <div class="col-3 border-right">
+      <p>id : {{customer.id}}</p>
+      <p>{{customer?.name}}  {{customer?.lastname}} </p>
+      <p> Gender: {{customer?.genderString}}</p>
+      <p> Birth Date: {{customer?.bod}}</p>
+      <p> Age: {{customer.age}}</p>
+    </div>
+    <div class="col-9">
+      <app-address-display [addresses]=customer?.addresses></app-address-display>
+    </div>
+  </div>
+  <div class="row float-right">
+    <a (click)="provideData()" routerLink="/customerUpsert">edit</a>
+  </div>
+</div>
