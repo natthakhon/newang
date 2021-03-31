@@ -1,7 +1,6 @@
 import { Component, OnInit,Input,OnChanges, SimpleChanges,ChangeDetectionStrategy } from '@angular/core';
 import {CustomerModel} from 'src/vm/models/cutomer-model'
 import {DataProvider} from 'src/app/provider/data/data'
-import {Gender} from 'src/vm/models/gender'
 
 @Component({
   selector: 'app-customer-display',

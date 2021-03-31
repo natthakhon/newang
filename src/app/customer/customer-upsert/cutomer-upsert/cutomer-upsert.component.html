@@ -5,27 +5,30 @@
         <h4>Customer</h4>
       </div>
       <div class="row col-6">
-        <div class="col-8">
+        <div class="col-8 p-1">
           <input type="text" class="form-control" formControlName="id" placeholder="Id">
         </div>
-        <div *ngIf="customerForm.controls['id'].errors.test" class="col-4 text-danger">
-            dcdgdf
+        <div *ngIf="customerForm.controls['id'].errors?.required" class="col-4 text-danger">
+          required
+        </div>
+        <div *ngIf="customerForm.controls['id'].errors?.duplicatedIdError" class="col-4 text-danger">
+          {{customerForm.controls['id'].errors?.duplicatedIdError}}
         </div>
       </div>
       <div class="row col-6">
-        <div class="col-8">
+        <div class="col-8 p-1">
           <input type="text" class="form-control" formControlName="name" placeholder="Name">
         </div>
-        <div class="col-4">
-          error
+        <div *ngIf="customerForm.controls['name'].errors?.required" class="col-4 text-danger">
+          required
         </div>
       </div>
       <div class="row col-6">
-        <div class="col-8">
+        <div class="col-8 p-1">
           <input type="text" class="form-control" formControlName="lastname" placeholder="Last name">
         </div>
-        <div class="col-4">
-          error
+        <div *ngIf="customerForm.controls['lastname'].errors?.required" class="col-4 text-danger">
+          required
         </div>
       </div>
       <div class="row col-6">
@@ -33,23 +36,36 @@
           <label>Gender</label>
         </div>
         <div formGroupName="gender" class="col-2" *ngFor="let g of genderLabel">
-          <label class="checkbox-inline">
+          <label class="checkbox-inline p-1">
             <input type="checkbox" formControlName={{g}}>   {{g}}
           </label>
         </div>
-        <div class="col-4">
+        <div *ngIf="customerForm.controls['gender'].errors?.gendererror" class="col-4 text-danger">
           {{customerForm.controls['gender'].errors?.gendererror}}
         </div>
       </div>
       <div class="row col-6">
-        <div class="col-3">Birth Date</div>
-        <div class="col-5">
-          <input type="date" class="form-control" formControlName="dob">
-        </div>
-        <div class="col-4">
-          error
+        <div class="col-3 p-1">Birth Date</div>
+        <div class="col-5 p-1">
+          <input type="date" class="form- p-1" formControlName="dob">
         </div>
       </div>
     </div>
+    <div class="row">
+      <h6>Addresses</h6>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <app-address-upsert [addresses]="customer.addresses" formControlName="address"></app-address-upsert>
+      </div>
+    </div>
   </form>
+  <p>
+    Form is {{customerForm.valid ? 'Valid' : 'Invalid'}}
+  </p>
+
+  <pre>
+  {{customerForm.value | json}}
+  </pre>
+
 </div>

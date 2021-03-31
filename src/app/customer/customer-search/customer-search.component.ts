@@ -31,24 +31,24 @@ export class CustomerSearchComponent extends StandardSearchForm<CustomerModel> {
     if (this.selectedCriteria === 'id'){
       this.service.getByCustomerId(this.searchValue)
       .pipe(
-        map(async item =>{
-          let customerItem = await ModelConverter.convert2Customer(item)
+        map(item =>{
+          let customerItem = ModelConverter.convert2Customer(item)
           return customerItem
         })
-      ).subscribe(async item=>
+      ).subscribe(item=>
         {
           this.searchResult = []
-          this.searchResult.push(await item)
+          this.searchResult.push(item)
         })
     }
 
     if (this.selectedCriteria === 'name'){
       this.service.getByCustomerName(this.searchValue)
       .pipe(
-        map(async items=>{
+        map(items=>{
           let customers:CustomerModel[] =[]
-          for await(let i of items){
-            let customerItem = await ModelConverter.convert2Customer(i)
+          for (let i of items){
+            let customerItem = ModelConverter.convert2Customer(i)
             customers.push(customerItem)
           }
           return customers

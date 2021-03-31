@@ -1,9 +1,10 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {CustomerModel} from 'src/vm/models/cutomer-model'
-import {FormGroup,FormBuilder} from '@angular/forms'
+import {FormGroup,FormBuilder, FormControl} from '@angular/forms'
 import {CustomerFormBuilder} from 'src/app/form-builder/customer/customer-builder'
 import {DataProvider} from 'src/app/provider/data/data'
 import {CustomerService} from 'src/app/services/customer.service'
+import {AddressSubFormBuilder} from 'src/app/form-builder/address/address-subform-builder'
 
 @Component({
   selector: 'app-cutomer-upsert',
@@ -13,8 +14,9 @@ import {CustomerService} from 'src/app/services/customer.service'
 export class CutomerUpsertComponent implements OnInit {
 
   customer:CustomerModel
-  customerForm:FormGroup
+  customerForm:FormGroup= new FormGroup({})
   genderLabel:string[]
+
 
   constructor(private fb: FormBuilder
     ,private provider:DataProvider
@@ -25,8 +27,9 @@ export class CutomerUpsertComponent implements OnInit {
 
   ngOnInit() {
     this.customer = this.provider.customerData
-    let form = new CustomerFormBuilder(this.customer,this.fb,this.service)
-    this.customerForm = form.customerForm
+    let form = new CustomerFormBuilder(this.customer,this.service,this.fb)
+    this.customerForm = form.form
+    this.customerForm.addControl('address',new FormControl([]))
     this.genderLabel = form.genderOption
   }
 

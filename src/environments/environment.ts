@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiurl: 'https://localhost:44360/api/',
+  apiurl: 'https://localhost:5001/api/',
   urlsuffix:{
     customer:{
       getbystudentid: 'customer/',

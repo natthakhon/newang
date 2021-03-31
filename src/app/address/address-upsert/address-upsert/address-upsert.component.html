@@ -1,1 +1,82 @@
-<p>address-upsert works!</p>
+<div class="container-fluid" [formGroup]="addressForm">
+  <div class="border border-primary" *ngFor="let f of addressForm.controls">
+    <ng-container [formGroup]="f">
+      <div class="row p-1">
+        <div class="col-4">
+          <select class="custom-select" formControlName="type">
+            <option *ngFor="let address of addressOptions" [ngValue]="address" >{{address}}</option>
+          </select>
+        </div>
+        <div *ngIf="f.get('type').errors?.required" class="col-2 text-danger">
+           required
+        </div>
+        <div class="col-4">
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col-4">
+          <input type="text" class="form-control" formControlName="address1" placeholder="address 1">
+        </div>
+        <div class="col-2 text-danger">
+          <div *ngIf="f.get('address1').errors?.required" >
+            required
+          </div>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control" formControlName="address2" placeholder="address 2">
+        </div>
+        <div class="col-2 text-danger">
+          <div *ngIf="f.get('address2').errors?.required" >
+            required
+          </div>
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col-4">
+          <input class="custom-select" list="zips" type="text" (change)="onZipChange($event.target.value,f.get('umphur'))" formControlName="zip" placeholder="Zip" >
+          <datalist id="zips" name="zips">
+            <option *ngFor="let zip of zipcode" [value]="zip">{{zip}}</option>
+          </datalist>
+        </div>
+        <div class="col-2 text-danger">
+          <div *ngIf="f.get('zip').errors?.required" >
+            required
+          </div>
+          <div *ngIf="f.get('zip').errors?.notvalidZip">
+            Not valid zip code
+          </div>
+        </div>
+        <div class="col-4">
+          <input class="custom-select" list="umphurs" type="text" (change)="onumphurChange($event.target.value,f.get('tumbol'))" formControlName="umphur" placeholder="Umphur" >
+          <datalist id="umphurs" name="umphurs">
+            <option *ngFor="let u of umphur" [value]="u">{{u}}</option>
+          </datalist>
+        </div>
+        <div class="col-2 text-danger">
+          <div *ngIf="f.get('umphur').errors?.required">
+            required
+          </div>
+          <div *ngIf="f.get('umphur').errors?.notvalidUmphur" >
+            Not valid umphur
+          </div>
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col-4">
+          <input class="custom-select" list="tumbols" type="text" formControlName="tumbol" placeholder="Tumbol" >
+          <datalist id="tumbols" name="tumbols">
+            <option *ngFor="let t of tumbol" [value]="t">{{t}}</option>
+          </datalist>
+        </div>
+        <div class="col-2 text-danger">
+          <div *ngIf="f.get('tumbol').errors?.required">
+            required
+          </div>
+          <div *ngIf="f.get('tumbol').errors?.notvalidTumbol" >
+            Not valid tumbol
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

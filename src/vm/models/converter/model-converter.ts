@@ -9,7 +9,7 @@ export class ModelConverter{
 
   static Zipfile:ZipCodeFile[] = []
 
-  static async convert2Customer(response):Promise<CustomerModel>{
+  static convert2Customer(response):CustomerModel{
     let customer = new CustomerModel((response as any).customerId
       , (response as any).name
       , (response as any).lastName
@@ -17,7 +17,7 @@ export class ModelConverter{
       , (response as any).gender
       , false)
 
-    customer.addresses = await ModelConverter.convert2Address((response as any).addresses)
+    customer.addresses = ModelConverter.convert2Address((response as any).addresses)
     customer.bod = customer.bod.substring(8,10) +
         '/'+customer.bod.substring(5,7) +
         '/'+customer.bod.substring(0,4)
@@ -26,23 +26,27 @@ export class ModelConverter{
     return customer
   }
 
-  static async convert2Address(response): Promise<AddressModel[]>{
+  static convert2Address(response): AddressModel[]{
     let customerAddresses : AddressModel[] = []
     let addresses = response as any[]
     addresses.forEach(a=>{
       let address = new AddressModel((a as any).address1
       , (a as any).address2
       , (a as any).zipCode
-      , (a as any).addressType)
+      , (a as any).addressType
+      , (a as any).changwad
+      , (a as any).tumbol
+      , (a as any).amphur)
       customerAddresses.push(address)
     })
+    /*
     let zip = await this.getZipCodeData()
     customerAddresses.forEach(ca=>{
       let zipcodeInfo = zip.find(z=>z.Zip.toString()==ca.zip.toString())
       ca.changwad = zipcodeInfo.Changwad
       ca.tumbol = zipcodeInfo.Tumbol
       ca.umphur = zipcodeInfo.Khet
-    })
+    })*/
     return customerAddresses
   }
 
